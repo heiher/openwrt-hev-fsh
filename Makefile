@@ -28,7 +28,12 @@ endef
 
 define Package/hev-fsh/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/hev-fsh $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/hev-fsh $(1)/usr/bin/fsh
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) files/fsh.config $(1)/etc/config/fsh
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/fsh-srv.init $(1)/etc/init.d/fsh-srv
+	$(INSTALL_BIN) files/fsh-fwd.init $(1)/etc/init.d/fsh-fwd
 endef
 
 $(eval $(call BuildPackage,hev-fsh))
