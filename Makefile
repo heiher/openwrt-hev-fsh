@@ -26,6 +26,10 @@ define Package/hev-fsh/description
 HevFsh is a solution for connect to remote shell in local networks.
 endef
 
+define Package/hev-fsh/conffiles
+/etc/config/fsh
+endef
+
 define Package/hev-fsh/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/hev-fsh $(1)/usr/bin/fsh
