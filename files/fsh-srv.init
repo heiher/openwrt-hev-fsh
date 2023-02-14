@@ -15,6 +15,7 @@ USE_PROCD=1
 start_hev_fsh_srv() {
 	addr=$(uci get fsh.srv.addr)
 	port=$(uci get fsh.srv.port)
+	file=$(uci get fsh.srv.tokens)
 
 	procd_open_instance
 	procd_set_param respawn
@@ -25,6 +26,9 @@ start_hev_fsh_srv() {
 		procd_append_param limits core="unlimited"
 	}
 	procd_set_param command /usr/bin/fsh -s
+	[ -n "${file}" ] && [ -e "${file}" ] && {
+		procd_append_param command -a ${file}
+	}
 	procd_append_param command ${addr}:${port}
 	procd_close_instance
 }
